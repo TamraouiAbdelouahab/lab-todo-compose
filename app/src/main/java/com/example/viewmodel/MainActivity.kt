@@ -11,6 +11,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.viewmodel.ui.theme.ViewModelTheme
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.viewmodel.viewModel.CounterViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,18 +29,33 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
+                    CounterScreen()
                 }
             }
         }
     }
 }
+
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
+fun CounterScreen(counterViewModel: CounterViewModel = viewModel()) {
+    val count by counterViewModel.count.collectAsState()
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(text = "Compteur: $count", style = MaterialTheme.typography.headlineMedium)
+
+        Row(modifier = Modifier.padding(16.dp)) {
+            Button(onClick = { counterViewModel.decrement() }, modifier = Modifier.padding(8.dp)) {
+                Text(text = "-")
+            }
+
+            Button(onClick = { counterViewModel.increment() }, modifier = Modifier.padding(8.dp)) {
+                Text(text = "+")
+            }
+        }
+    }
 }
 
 @Preview(showBackground = true)
@@ -44,7 +66,7 @@ fun GreetingPreview() {
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ){
-            Greeting("Android")
+            CounterScreen()
         }
 
     }
