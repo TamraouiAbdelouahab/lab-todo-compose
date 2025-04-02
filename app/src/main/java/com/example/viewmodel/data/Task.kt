@@ -3,7 +3,9 @@ package com.example.viewmodel.data
 data class Task(
     val id: Int,
     val title: String,
-    val completed: Boolean
+    val description: String,
+    val status:Int,
+    val important: Int
 )
 {
 
