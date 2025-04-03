@@ -70,7 +70,6 @@ fun CompteurAvecCoroutine() {
     }
 }
 
-
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreviewCoroutine() {
@@ -81,6 +80,5 @@ fun GreetingPreviewCoroutine() {
         ){
             CompteurAvecCoroutine()
         }
-
     }
 }
